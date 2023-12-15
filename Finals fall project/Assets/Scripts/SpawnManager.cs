@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public float arearange = 20f;
-
+    public float areaRange = 20f;
     public int coinAmount = 10;
-
     public GameObject collectibleObject;
-
-    public GameObject enemyObject;
+    public GameObject ememyObject;
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +24,10 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnRandomEnemy()
     {
-        Instantiate(enemyObject, new Vector3(0, 1, 5), enemyObject.transform.rotation);
+        Instantiate(ememyObject, CreateRandomSpawnPosition(), ememyObject.transform.rotation);
     }
 
-    void SpawnCollectibleObject()
+    public void SpawnCollectibleObject()
     {
         for (int i = 0; i < coinAmount; i++)
         {
@@ -40,9 +37,11 @@ public class SpawnManager : MonoBehaviour
 
     Vector3 CreateRandomSpawnPosition()
     {
-        float xValue = Random.Range(-arearange, arearange);
-        float zValue = Random.Range(-arearange, arearange);
+        float xValue = Random.Range(-areaRange, areaRange);
+        float zValue = Random.Range(-areaRange, areaRange);
         Vector3 randomPosition = new Vector3(xValue, 1f, zValue);
+
         return randomPosition;
     }
+
 }
