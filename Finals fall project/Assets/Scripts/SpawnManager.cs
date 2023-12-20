@@ -8,23 +8,29 @@ public class SpawnManager : MonoBehaviour
     public int coinAmount = 10;
     public GameObject collectibleObject;
     public GameObject ememyObject;
+    public bool isGameActive = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        SpawnRandomEnemy();
+        //SpawnRandomEnemy();
         SpawnCollectibleObject();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartSpawner()
     {
-
+        isGameActive = true;
+        StartCoroutine(CreateRandomAmountOfEnemies());
     }
 
     void SpawnRandomEnemy()
     {
         Instantiate(ememyObject, CreateRandomSpawnPosition(), ememyObject.transform.rotation);
+    }
+
+    public void StopSpawner()
+    {
+        isGameActive = false;
     }
 
     public void SpawnCollectibleObject()
@@ -45,4 +51,17 @@ public class SpawnManager : MonoBehaviour
         return randomPosition;
     }
 
+    IEnumerator CreateRandomAmountOfEnemies()
+    {
+        while (isGameActive)
+        {
+            int amountOfTime = Random.Range(1, 8);
+            yield return new WaitForSeconds(amountOfTime);
+            int amountOfEnemies = Random.Range(1, 3);
+            for (int i = 0; i < amountOfEnemies; i++)
+            {
+                SpawnRandomEnemy();
+            }
+        }
+    }
 }

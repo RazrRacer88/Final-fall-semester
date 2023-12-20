@@ -14,11 +14,14 @@ public class UIManager : MonoBehaviour
 
     private int _coinAmount;
 
+    public Button startButton;
+
     // Start is called before the first frame update
     void Start()
     {
         replayButtonn.gameObject.SetActive(false);
-        coinAmountText.text = "Coins: " + _coinAmount.ToString();
+        startButton.gameObject.SetActive(true);
+        coinAmountText.gameObject.SetActive(false);
     }
 
     public void UpdateCoinCount()
@@ -35,5 +38,14 @@ public class UIManager : MonoBehaviour
     public void ReplayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void StartGame() 
+    {
+    startButton.gameObject.SetActive(false);
+    coinAmountText.gameObject.SetActive(true);
+    coinAmountText.text = "Coins: " + _coinAmount.ToString();
+        GameObject.Find("Spawn Manager").GetComponent<SpawnManager>().StartSpawner();
+
     }
 }
